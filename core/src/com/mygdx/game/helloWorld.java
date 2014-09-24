@@ -14,6 +14,8 @@ public class helloWorld implements ApplicationListener{
 
     private SpriteBatch batch;
     private BitmapFont font;
+
+
     @Override
     /** Called when the {@link com.badlogic.gdx.Application} is first created. */
     public void create (){
