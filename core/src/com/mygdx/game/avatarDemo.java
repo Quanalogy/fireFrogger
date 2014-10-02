@@ -16,9 +16,9 @@ public class avatarDemo{
     private Input.Orientation nativeOrientation = Gdx.input.getNativeOrientation();
     private float accelX = Gdx.input.getAccelerometerX();
     private float accelY = Gdx.input.getAccelerometerY();
-    private float accelZ = Gdx.input.getAccelerometerZ();
     private int xPos;
     private int yPos;
+    private final int radius = 15;
 
 
     public avatarDemo (Pixmap pixmap){
@@ -40,7 +40,7 @@ public class avatarDemo{
     private void avatarRender(){
 
         pixmap.setColor(Color.GREEN);
-        pixmap.fillCircle(xPos, yPos, 15);
+        pixmap.fillCircle(xPos, yPos, radius);
 
 
     }
@@ -52,12 +52,27 @@ public class avatarDemo{
         if(Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)){
             // do something
 
+
             accelX = Gdx.input.getAccelerometerX();
             accelY = Gdx.input.getAccelerometerY();
-            xPos = getX() - (int) Math.round(accelX);
-            yPos = getY() + (int) Math.round(accelY);
+            xPos = getX() - 2*((int) Math.round(accelX));
+            yPos = getY() + 2*((int) Math.round(accelY));
 
-            System.out.println("lalalalalal x koordinat:" + accelX + "\n" + "y koordinat:" + accelY);
+            if(xPos < 0){
+                xPos = 0 + radius;
+            }
+
+            if(xPos > pixmap.getWidth()){
+                xPos = pixmap.getWidth() - radius;
+            }
+
+            if(yPos > pixmap.getHeight()){
+                yPos = pixmap.getHeight() - radius;
+            }
+
+            if(yPos < 0){
+                yPos = 0 + radius;
+            }
 
 
         } else {

@@ -2,14 +2,12 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import java.util.ArrayList;
 
@@ -28,7 +26,7 @@ public class graphicsDemo implements ApplicationListener {
     private static int MIN = 75;
     private static int MAX = 150;
     private static int LINEWIDTH234 = 20;
-    private static int SPACEHEIGHT = 50;
+    private static int SPACEHEIGHT = 80;
     private avatarDemo AD;
 
     @Override
