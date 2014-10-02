@@ -2,14 +2,17 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by munken on 9/24/14.
@@ -21,15 +24,12 @@ public class graphicsDemo implements ApplicationListener {
     private Sprite sprite;
     private Pixmap pixmap;
     private int currentFrame = 0;
-  //  private int[] yLength = {0, 100, 120, 220, 240, 340, 360, 460, -20, -120, -140, -240, -260, -360, -380, -480};
     private ArrayList<ArrayList<Integer>> yLength = new ArrayList<ArrayList<Integer>>();
     private static int MIN = 75;
     private static int MAX = 150;
     private static int LINEWIDTH234 = 20;
-    private int xPos;
-    private int yPos;
     private static int SPACEHEIGHT = 50;
-
+    private avatarDemo AD;
 
     @Override
     public void create(){
@@ -40,14 +40,13 @@ public class graphicsDemo implements ApplicationListener {
         // We create one with the width of the screen and the height of the screen, using 8 bytes for Red, Green, Blue and Alpha channels
         pixmap = new Pixmap(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
 
-
-        makeAvatar();
         makeArrayRows();
 
-
+        AD = new avatarDemo(pixmap);
 
         texture = new Texture(pixmap);
         sprite = new Sprite(texture);
+
     }
 
     @Override
@@ -60,8 +59,15 @@ public class graphicsDemo implements ApplicationListener {
     public void render(){
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // her kaldes rendermetoderne
         myRender();
-        avatarRender();
+        AD.render();
+        AD.update();
+
+
+        texture = new Texture(pixmap);
+        sprite = new Sprite(texture);
 
         batch.begin();
         sprite.setPosition(0,0);
@@ -71,10 +77,6 @@ public class graphicsDemo implements ApplicationListener {
 
     private void myRender(){
 
-//        for (int i = 0; i<4; i++){
-//            pixmap.setColor(Color.RED);
-//            pixmap.drawLine((pixmap.getWidth()/6)*(2+i), pixmap.getHeight(), (pixmap.getWidth()/6)*(2+i), (int) (Math.random()*99+1));
-//        }
         //making sure that the previous has been disposed (otherwise you'll get overload)
         texture.dispose();
 
@@ -85,7 +87,7 @@ public class graphicsDemo implements ApplicationListener {
 
 
 
-        // Make Lines
+        // Make walls
 
         for (int i = 0; i<4; i++){
             for (int j = 0; j<yLength.get(i).size(); j += 2){
@@ -93,7 +95,6 @@ public class graphicsDemo implements ApplicationListener {
                 int max = yLength.get(i).get(j+1) + currentFrame;
 
                 pixmap.setColor(Color.RED);
-//                pixmap.drawLine((pixmap.getWidth()/5)*(1+i), min, (pixmap.getWidth()/5)*(1+i), max);
                 pixmap.drawRectangle((pixmap.getWidth()/5)*(1+i), min, LINEWIDTH234, max-min);
 
             }
@@ -104,34 +105,12 @@ public class graphicsDemo implements ApplicationListener {
         if(currentFrame == pixmap.getHeight()){
             currentFrame = 0;
         }
-        texture = new Texture(pixmap);
-        sprite = new Sprite(texture);
-
-
-    }
-
-    private void makeAvatar(){
-
-        xPos = pixmap.getWidth()/10;
-        yPos = pixmap.getHeight()/2;
 
 
 
     }
 
-    private void avatarRender(){
 
-        texture.dispose();
-        pixmap.setColor(Color.GREEN);
-//        pixmap.drawCircle(100,100, 50);
-//        pixmap.fillCircle(100, 100, 50);
-        pixmap.fillCircle(xPos, yPos, 15);
-
-        texture = new Texture(pixmap);
-        sprite = new Sprite(texture);
-
-
-    }
 
     private void makeArrayRows(){
 /*
@@ -148,10 +127,6 @@ public class graphicsDemo implements ApplicationListener {
                 int max = currentMax;
                 min = max - min;
 
-//                yLength.get(i).add(j, max);
-//                yLength.get(i).add(j + 1, min);
-//                yLength.get(i).add(j + 2, -(totalHeight - max));
-//                yLength.get(i).add(j + 3, -(totalHeight - min));
                 if (min < 0){
                     min = 0;
                 }
@@ -167,6 +142,7 @@ public class graphicsDemo implements ApplicationListener {
             }
         }
     }
+
 
     @Override
     public void resize(int width, int height){
