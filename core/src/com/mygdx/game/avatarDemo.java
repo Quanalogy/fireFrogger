@@ -12,8 +12,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 public class avatarDemo{
 
     private Pixmap pixmap;
-    private int orientation = Gdx.input.getRotation();
-    private Input.Orientation nativeOrientation = Gdx.input.getNativeOrientation();
     private float accelX = Gdx.input.getAccelerometerX();
     private float accelY = Gdx.input.getAccelerometerY();
     private int xPos;
@@ -56,7 +54,7 @@ public class avatarDemo{
             accelX = Gdx.input.getAccelerometerX();
             accelY = Gdx.input.getAccelerometerY();
             xPos = getX() - 2*((int) Math.round(accelX));
-            yPos = getY() + 2*((int) Math.round(accelY));
+            yPos = getY() + 4*((int) Math.round(accelY));
 
             if(xPos < 0){
                 xPos = 0 + radius;
