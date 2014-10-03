@@ -56,6 +56,8 @@ public class Wall {
 
                     pixmap.setColor(Color.RED);
                     pixmap.drawRectangle((pixmap.getWidth() / 5) * (1 + i), min, LINEWIDTH234, max - min);
+//                    pixmap.fillRectangle((pixmap.getWidth() / 5) * (1 + i), min, LINEWIDTH234, max - min);
+
                 }
             }
 
