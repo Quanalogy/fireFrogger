@@ -103,14 +103,14 @@ public class avatarDemo{
         // vi kører alle 4 rækker igennem
         for(int row = 0; row < 4; row ++){
             //dernæst længden af vores array af walls
-            for(int n = 0; n < wall.getYLength().get(row).size(); n++){
+            for(int n = 0; n < wall.getYLength().get(row).size(); n+= 2){
                 // her tjekker vi om der er collision mellem vores bold og væggen (tænkes som er vores x2 større end objektes x1 og er vores x2 større end objektes x1
                 // og er vores y1 mindre end objektes y2 og er vores y2 større end objektes y1.
                 // dette kan bruges til alle collision checks. Hvis nogle af disse tjeks er false er der collision, ellers er der ikke :)
-                if(this.xPos-radius < wall.getX2(row, n) &&
-                        this.xPos+radius > wall.getX1(row, n) &&
-                        this.getY()-radius < wall.getY2(row, n) &&
-                        this.getY()+radius > wall.getY1(row, n)){
+                if(this.xPos-radius <= wall.getX2(row, n) &&
+                        this.xPos+radius >= wall.getX1(row, n) &&
+                        this.yPos-radius <= wall.getY1(row, n) &&
+                        this.yPos+radius >= wall.getY2(row, n)){
                         res = true;
                         System.out.println("true");
                 }

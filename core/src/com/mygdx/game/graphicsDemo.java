@@ -55,7 +55,7 @@ public class graphicsDemo implements ApplicationListener {
         AD.update();
 
         if (AD.isDead()) {
-            texture = new Texture("access-denied.png");
+            texture = new Texture("access-denied2.png");
             sprite = new Sprite(texture);
             sprite.rotate90(true);
             sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
