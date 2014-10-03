@@ -34,6 +34,7 @@ public class Wall {
         pixmap.setColor(Color.BLACK);
         pixmap.fill();
 
+
         // Make walls positive
 
         for (int i = 0; i<4; i++){
@@ -109,6 +110,7 @@ public class Wall {
                 j += 4;
             }
         }
+
     }
 
     public int getX1(int row, int n){
@@ -137,7 +139,7 @@ public class Wall {
 
     public int getY2(int row, int n){
 
-        int tmp = yLength.get(row).get(n/2)+1;
+        int tmp = yLength.get(row).get((n/2)+1);
 
         if(row % 2 == 0){
             tmp = tmp + currentFrame;
@@ -152,10 +154,6 @@ public class Wall {
         return yLength;
     }
 
-    public void winnerLineFTW(){
-        pixmap.setColor(Color.GREEN);
-        pixmap.drawRectangle(getX2(3,0), 0, (getX2(3,0)-getX1(3,0)), pixmap.getHeight());
-    }
 
     public void resume(){
         currentFrame = 0;
