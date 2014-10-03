@@ -56,7 +56,6 @@ public class Wall {
 
                     pixmap.setColor(Color.RED);
                     pixmap.drawRectangle((pixmap.getWidth() / 5) * (1 + i), min, LINEWIDTH234, max - min);
-                    System.out.println(currentNegativeFrame);
                 }
             }
 
@@ -106,7 +105,6 @@ public class Wall {
 
                 currentMax = min - SPACEHEIGHT;
                 j += 4;
-                //   System.out.println(currentMax);
             }
         }
     }

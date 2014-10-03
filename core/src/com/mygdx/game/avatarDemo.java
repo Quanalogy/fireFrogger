@@ -16,7 +16,9 @@ public class avatarDemo{
     private float accelY = Gdx.input.getAccelerometerY();
     private int xPos;
     private int yPos;
-    private final int radius = 15;
+    private static final int velY = 6;
+    private static final int velX = 3;
+    private static final int radius = 15;
 
 
     public avatarDemo (Pixmap pixmap){
@@ -53,22 +55,22 @@ public class avatarDemo{
 
             accelX = Gdx.input.getAccelerometerX();
             accelY = Gdx.input.getAccelerometerY();
-            xPos = getX() - 2*((int) Math.round(accelX));
-            yPos = getY() + 4*((int) Math.round(accelY));
+            xPos = getX() - velX*((int) Math.round(accelX));
+            yPos = getY() + velY*((int) Math.round(accelY));
 
-            if(xPos < 0){
+            if(xPos < 0+radius){
                 xPos = 0 + radius;
             }
 
-            if(xPos > pixmap.getWidth()){
+            if(xPos > pixmap.getWidth()-radius){
                 xPos = pixmap.getWidth() - radius;
             }
 
-            if(yPos > pixmap.getHeight()){
+            if(yPos > pixmap.getHeight()-radius){
                 yPos = pixmap.getHeight() - radius;
             }
 
-            if(yPos < 0){
+            if(yPos < 0+radius){
                 yPos = 0 + radius;
             }
 
