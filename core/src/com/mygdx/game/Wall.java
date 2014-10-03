@@ -152,6 +152,11 @@ public class Wall {
         return yLength;
     }
 
+    public void winnerLineFTW(){
+        pixmap.setColor(Color.GREEN);
+        pixmap.drawRectangle(getX2(3,0), 0, (getX2(3,0)-getX1(3,0)), pixmap.getHeight());
+    }
+
     public void resume(){
         currentFrame = 0;
     }
