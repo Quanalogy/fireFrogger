@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 
 /**
@@ -19,24 +23,37 @@ public class avatarDemo{
     private static final int velY = 6;
     private static final int velX = 3;
     private static final int radius = 15;
+    private Wall wall;
 
+    public boolean isDead() {
+        return dead;
+    }
 
-    public avatarDemo (Pixmap pixmap){
-
-        this.pixmap = pixmap;
+    public void reset() {
+        this.dead = false;
         makeAvatar();
     }
 
+    private boolean dead = false;
 
+
+    public avatarDemo (Pixmap pixmap, Wall wall){
+
+        this.pixmap = pixmap;
+        this.wall = wall;
+        makeAvatar();
+    }
+
+    //sæt koordinater til bold
     private void makeAvatar(){
 
         xPos = pixmap.getWidth()/10;
         yPos = pixmap.getHeight()/2;
 
-
-
     }
 
+
+    //Lav cirkel
     private void avatarRender(){
 
         pixmap.setColor(Color.GREEN);
@@ -48,6 +65,7 @@ public class avatarDemo{
 
 
     public void move(){
+        // tjek på om der er et accelerometer
 
         if(Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)){
             // do something
@@ -80,11 +98,42 @@ public class avatarDemo{
         }
     }
 
+    public boolean isTouchingWall(){
+        boolean res = false;
+        // vi kører alle 4 rækker igennem
+        for(int row = 0; row < 4; row ++){
+            //dernæst længden af vores array af walls
+            for(int n = 0; n < wall.getYLength().get(row).size(); n++){
+                // her tjekker vi om der er collision mellem vores bold og væggen (tænkes som er vores x2 større end objektes x1 og er vores x2 større end objektes x1
+                // og er vores y1 mindre end objektes y2 og er vores y2 større end objektes y1.
+                // dette kan bruges til alle collision checks. Hvis nogle af disse tjeks er false er der collision, ellers er der ikke :)
+                if(this.xPos-radius < wall.getX2(row, n) &&
+                        this.xPos+radius > wall.getX1(row, n) &&
+                        this.getY()-radius < wall.getY2(row, n) &&
+                        this.getY()+radius > wall.getY1(row, n)){
+                        res = true;
+                        System.out.println("true");
+                }
+            }
+        }
+        return res;
+
+    }
+
     //Update sørger for alt der skal opdateres.
     public void update(){
         move();
+        if(isTouchingWall()){
+            this.dead = true;
+        }
     }
 
+    public boolean isWin(){
+        if(this.getX()-radius > wall.getX2(3, 0)){
+            return true;
+        }
+        return false;
+    }
     //Render sørger for alt der skal tegnes
     public void render() {
         avatarRender();

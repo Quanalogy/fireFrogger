@@ -110,6 +110,48 @@ public class Wall {
             }
         }
     }
+
+    public int getX1(int row, int n){
+
+        return (pixmap.getWidth() / 5) * (1 + row);
+    }
+
+    public int getX2(int row, int n){
+
+        return ((pixmap.getWidth() / 5) * (1 + row)) + LINEWIDTH234;
+    }
+
+    public int getY1(int row, int n){
+
+        int tmp = yLength.get(row).get(n/2);
+
+        if(row % 2 == 0){
+            tmp = tmp + currentFrame;
+        } else {
+            tmp = tmp + currentNegativeFrame;
+        }
+
+        return tmp;
+
+    }
+
+    public int getY2(int row, int n){
+
+        int tmp = yLength.get(row).get(n/2)+1;
+
+        if(row % 2 == 0){
+            tmp = tmp + currentFrame;
+        } else {
+            tmp = tmp + currentNegativeFrame;
+        }
+
+        return tmp;
+    }
+
+    public ArrayList<ArrayList<Integer>> getYLength(){
+        return yLength;
+    }
+
     public void resume(){
         currentFrame = 0;
     }
